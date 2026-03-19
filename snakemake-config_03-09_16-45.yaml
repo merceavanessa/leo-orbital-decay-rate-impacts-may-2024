@@ -1,0 +1,90 @@
+debug: False
+
+env:
+  project_name: "Leo Orbital Decay Rate Impacts Analysis"
+  python_version: '3.9.19'
+  conda_env: 'swi_venv'
+  conda_env_path: 'workflow/envs/'
+  reports_path: './'
+  report_name: 'report.html'
+  python_interpreter: 'python3'
+  has_conda: true
+
+data: 
+  download:
+    start_date: '2024-05-01'
+    end_date: '2024-05-14'
+  datasets:
+    omni: 'OMNI_HRO_5MIN'
+    latis: 'LATIS'
+    pod: 'POD'
+    tle: 'TLE'
+    combined: 'combined'
+  base_paths:
+    base: 'Zenodo/2024-05-01_2024-05-14/'
+    original_pod: 'Zenodo/orbgen'
+    raw: 'Zenodo/2024-05-01_2024-05-14/raw'
+    preprocessed: 'Zenodo/2024-05-01_2024-05-14/preprocessed'
+    processed: 'Zenodo/2024-05-01_2024-05-14/processed'
+    configs: 'Zenodo/2024-05-01_2024-05-14/configs'
+  grid_paths:
+    'output': 'Zenodo/GRID/outputs/'
+    'current_grid_filename': '2025-09-03_16-45_grid_all.csv'
+
+preprocessing_pipelines:
+  OMNI_HRO_5MIN: 
+    custom:
+      replace_max_with_nan: true
+    rename_columns: true
+    reorder_columns: true 
+    set_cadence: '5min' 
+    index_column: 'time'
+    imputing_schemes: 
+      specific: 
+        mean: 
+          columns: []
+        median: 
+          columns: []
+        most_frequent: 
+          columns: []
+        knn: 
+          columns: []
+        forward: 
+          columns: []
+        constant: 
+            columns: ['Spacecraft ID (Plasma)', 'Spacecraft ID (IMF)', 'Percent Interpolated', 'Timeshift (seconds)']
+            value: -1
+      others_scheme: 'interpolate'
+    columns_to_drop: []
+    columns_to_calculate_slopes: ['|avg B|', 'Bz GSE', 'Flow Speed (km/s', 'Electric Field (Mv/m)', 'Proton density (n/cc)']
+
+  LATIS: 
+    rename_columns: true
+    reorder_columns: true 
+    set_cadence: '5min' 
+    index_column: 'time'
+    imputing_schemes: 
+      specific: 
+        mean: 
+          columns: []
+        median: 
+          columns: []
+        most_frequent: 
+          columns: []
+        knn: 
+          columns: []
+        forward: 
+          columns: ['observed_flux (solar flux unit (SFU))', 'absolute_f30 (solar flux unit (SFU))', 'ap (nT)', 'kp_value']
+        constant: 
+            columns: []
+            value: -1
+      others_scheme: 'interpolate'
+    columns_to_drop: [
+      'absolute_f30_c (solar flux unit (SFU))',
+      'absolute_f30_p (solar flux unit (SFU))',
+      'absolute_f30_f'
+    ]
+  POD: 
+  TLE: 
+model:
+  checkpoint_file: ''
