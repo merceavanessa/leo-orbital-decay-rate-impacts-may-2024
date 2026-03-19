@@ -64,7 +64,10 @@ Intermediate data processing steps can be reproduced by running the Snakemake wo
 
 For questions or feedback, please contact:<br>
 **Vanessa Mercea** – [vanessa-maria.mercea@unibe.ch](mailto:vanessa-maria.mercea@unibe.ch)<br>
-**ORCID** [0000-0001-5252-9393](https://orcid.org/0000-0001-5252-9393)
+**ORCID** [0000-0001-5252-9393](https://orcid.org/0000-0001-5252-9393)<br>
+
+[![DOI](https://zenodo.org/badge/1185296166.svg)](https://doi.org/10.5281/zenodo.19115188)
+
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>.</small></p>
 
