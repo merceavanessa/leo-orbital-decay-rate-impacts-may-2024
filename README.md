@@ -13,26 +13,41 @@ This repository contains the code used to analyze the storm-induced orbital deca
     ├── requirements.txt                           <- Defines Python dependencies for the analysis environment.
     ├── .gitignore                                 <- Specifies intentionally untracked files to ignore.
     ├── Snakefile                                  <- Snakemake workflow to automate the processing, modeling, and analysis pipelines:
-                                                       * Creates and configures the Python/Conda environment.
-                                                       * Downloads the solar wind, proxy, orbit determination (POD), and TLE data.
-                                                       * Preprocesses each dataset (OMNI, LATIS, POD, TLE) with specific pipelines defined in the configuration files.
-                                                       * Merges the preprocessed data into a single dataset for modeling.
-                                                       * Runs grid search for hyperparameter tuning and selects the best regression model.
-                                                       * Generates predictions and computes feature importances for orbital decay impacts.
+                                                       Creates and configures the Python/Conda environment.
+                                                       Downloads the solar wind, proxy, orbit determination (POD), and TLE data.
+                                                       Preprocesses each dataset (OMNI, LATIS, POD, TLE) with specific pipelines defined in the 
+                                                       configuration files. Merges the preprocessed data into a single dataset for modeling.
+                                                       Runs grid search for hyperparameter tuning and selects the best regression model.
+                                                       Generates predictions and computes feature importances for orbital decay impacts.
     ├── snakemake-config_03-09_16-45.yaml          <- YAML configuration file for dataset paths, pipelines, and model setup.
     ├── Zenodo/                                    <- Main data and results directory.
-        ├── data/                                  <- Contains raw, preprocessed, and processed datasets:
-            ├── 2024-05-01_2024-05-14/             <- Datasets and configurations for the specified date range.
+        ├── data/                                  <- Contains raw and processed datasets and configurations
+            ├── 2024-05-01_2024-05-14/             <- 
                 ├── raw/                           <- Raw, original data from the different sources.
-                ├── preprocessed/                  <- Transformed intermediate data.
                 ├── processed/                     <- Final merged dataset ready for modeling and predictions.
                 ├── configs/                       <- Configuration files used by the preprocessing pipelines.
                 ├── maneuvers/                     <- Maneuver data associated with the dataset.
                 ├── CMEs/                          <- Data related to Coronal Mass Ejections (ICME durations, etc.).
-                ├── orbgen/                        <- Orbit data for the LEO satellites.
                 └── GRID/                          <- Data specifically related to grid configurations for modeling. 
         └── results/                               <- Different results generated from the workflow, from figures, to 
-                                                      intermediate data for modeling, to grid results.
+            ├── 2024-05-01_2024-05-14/             <-
+                ├── figures/                       <- [output of /src/notebooks] All figures generated for the manuscript, produced by notebooks in
+                                                      /src/notebooks 
+                ├── disturbance_annotations/       <- [output of /src/notebooks] All figures with annotations of in-orbit disturbance strengths
+                ├── cors/                          <- [output of /src/notebooks] Plots of lags vs. correlation and estimated response times by region )
+                ├── GRID/                          <- [needed] GRID search / model selection results.
+                ├── satellites/<satellite>/
+                                       └── data    <- [needed] Input/Output files for model train/test; model and results files, shap values. 
+                                                     with_val and no_val sub-folders contain data and results for two kind of 
+                                                     data splits: if splitting the train set further into half train, half validation, 
+                                                     or using the entire train set to fit the model. This was an analysis done to assess
+                                                     the impact of the dataset length on the model performance. Manuscript results use 
+                                                     the full train set i.e. no_val folder, once the best model was selected via cross-validation.
+                                       └── plots   <- [output of /src/notebooks] Prediction plots per satellite, as in the manuscript
+                ├── shifts                         <- [needed] File containing the best response time estimates, and a .csv per satellite with 
+                                                      annotated in-orbit disturbance strengths.
+                ├── summary                        <- [needed] Files containing aggregated results and feature importances, including the best model parameters,
+                                                      performance metrics, and feature importances; a copy of the reference grid configuration;
     ├── workflow/                                  <- Contains Snakemake workflow reports and a stylesheet
     └── src/                                       <- Source code directory 
         ├── data/                                  <- Methods for downloading datasets (e.g., OMNI, LATIS, POD, TLE).
@@ -63,8 +78,8 @@ Intermediate data processing steps can be reproduced by running the Snakemake wo
 ### Contact
 
 For questions or feedback, please contact:<br>
-**Vanessa Mercea** – [vanessa-maria.mercea@unibe.ch](mailto:vanessa-maria.mercea@unibe.ch)<br>
-**ORCID** [0000-0001-5252-9393](https://orcid.org/0000-0001-5252-9393)<br>
+**Vanessa Mercea*– [vanessa-maria.mercea@unibe.ch](mailto:vanessa-maria.mercea@unibe.ch)<br>
+**ORCID*[0000-0001-5252-9393](https://orcid.org/0000-0001-5252-9393)<br>
 
 [![DOI](https://zenodo.org/badge/1185296166.svg)](https://doi.org/10.5281/zenodo.19115188)
 
