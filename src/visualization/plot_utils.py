@@ -508,7 +508,6 @@ def plot_lasso_path_with_shrinkage(model, coefs, feats_for_coefs, filepath=None,
 
     print(f"Optimal alpha: {model['lassocv'].alpha_:.3f}")
 
-    # Save figure if filepath is provided
     if filepath:
         os.makedirs(filepath.rsplit('/', 1)[0], exist_ok=True)
         plt.savefig(filepath, dpi=300, bbox_inches='tight')
