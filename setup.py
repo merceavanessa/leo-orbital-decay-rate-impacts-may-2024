@@ -1,10 +1,12 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='leo_orbital_decay_rate_impacts',
-    version='1.0',
-    description='Quantifying and modeling the storm-induced orbital decay of low Earth orbit satellites .',
+    name='leodecay',
+    version='1.0.0',
+    description='Tools for downloading, preprocessing, and analyzing space weather and LEO satellite orbital decay data.',
     author='Vanessa Mercea',
+    author_email='vanessa-maria.mercea@unibe.ch',
     license='MIT',
-    packages=find_packages(include=["leo_orbital_decay_rate_impacts*"])
+    packages=find_packages(include=["leodecay*"]),
+    python_requires='>=3.9',
 )
